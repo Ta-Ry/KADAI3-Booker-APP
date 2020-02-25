@@ -1,0 +1,18 @@
+<% if flash[:notice] %>
+<div>
+    <p class="flash"><%= flash[:notice] %></p>
+</div>
+<% end %>
+<h2>Book detail</h2>
+<div class="blog-box-content">
+    <p class="title">
+      <strong>Title</strong>
+        <%= @book.title %>
+    </p>
+    <p class="opinion">
+      <strong>Opinion</strong>
+        <%= @book.body %>
+    </p>
+</div>
+<%= link_to "Edit", edit_book_path(@book) %>
+<%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' } %>

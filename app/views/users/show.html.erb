@@ -1,9 +1,67 @@
+<h2>User info</h2>
 <div class="profile-container">
-	<%= attachment_image_tag @user, :profile_image, :fill, 60, 60, class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg" %>
+	<%= attachment_image_tag @user, :profile_image, :fill, 100, 100, class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg" %>
 	<p>name</p><p><%= @user.name %></p>
 	<p>introduction</p><p><%= @user.introduction %></p>
-
   <% if @user.id == current_user.id %>
     <p><%= link_to "プロフィール編集", edit_user_path(@user), class: "pull-right" %></p>
   <% end %>
 </div>
+
+<h2>New book</h2>
+
+
+<%= form_for(@book) do |f| %>
+<% if @book.errors.any? %>
+  <div id="error-explanation">
+    <h2><%= @book.errors.count %> errors prohibited this book from being saved:</h2>
+        <ul>
+        <% @book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+  </div>
+<% end %>
+
+  <div class="field">
+    <%= f.label :Title %>
+    <%= f.text_field :title, class: "book_Title" %>
+  </div>
+  <div class="field">
+    <%= f.label :Opinion %>
+    <%= f.text_area :body, class: "book_Opinion" %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Create Book" %>
+  </div>
+<% end %>
+
+<h1>Books</h1>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th>Opinon</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td>
+          <%= link_to user_path(book.user.id) do %>
+          <%= attachment_image_tag book.user, :profile_image, :fill, 100, 100, class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg" %>
+          <% end %>
+        </td>
+        <td>
+           <%= link_to user_path(book.user.id) do %>
+           <%= book.title %>
+           <% end %>
+        </td>
+        <td><%= book.body %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
