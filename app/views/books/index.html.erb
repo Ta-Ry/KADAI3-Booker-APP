@@ -1,3 +1,5 @@
+<%= render 'books/link', book: Book.new, user: @user %>
+
 <h1>Books</h1>
 <table>
   <thead>
@@ -18,7 +20,7 @@
           <% end %>
         </td>
         <td>
-           <%= link_to user_path(book.user.id) do %>
+           <%= link_to book_path(book.id) do %>
            <%= book.title %>
            <% end %>
         </td>

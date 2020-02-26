@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   end
   def index
   	@users = User.all
+  	@user = current_user
   end
   private
 
@@ -23,3 +24,6 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :profile_image, :email, :introduction)
   end
 end
+
+#確認用http
+#http://localhost:3000/
