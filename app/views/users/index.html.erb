@@ -1,7 +1,20 @@
-<%= render 'books/link', book: Book.new, user: @user %>
+<div class="container">
+  <div class="row">
+<% if @book.errors.any? %>
+  <div id="error-explanation">
+    <h2><%= @book.errors.count %> errors prohibited this book from being saved:</h2>
+        <ul>
+        <% @book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+  </div>
+<% end %>
 
+    <%= render 'books/link', book: Book.new, user: @user %>
+     <div class="col-xs-9">
 <h1>Users</h1>
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>image</th>
@@ -13,10 +26,13 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= attachment_image_tag user, :profile_image, :fill, 100, 100, class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg" %></td>
+        <td><%= attachment_image_tag user, :profile_image, :fill, 100, 100, class: "pull-left profile-thumb", fallback: "no_image.jpg" %></td>
         <td><%= user.name %></td>
         <td><a><%= link_to 'Show', user %></a></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+    </div>
+  </div>
+</div>
