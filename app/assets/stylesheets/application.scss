@@ -15,3 +15,43 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.li
+{
+	margine-top: 15px;
+	margine-bottom: 15px;
+}
+.container
+{
+	margine-right: auto;
+	margin-left: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+#error-explanation
+{
+	color: red;
+}
+#error-explanation ul li
+{
+	font-size: 12px;
+    list-style: square;
+}
+a:visited
+{
+	color: #666;
+}
+a
+{
+	color: #000;
+}
+.field, .actions
+{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.flashtop
+{
+	color: green;
+}

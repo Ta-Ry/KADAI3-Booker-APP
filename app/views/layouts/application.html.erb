@@ -11,37 +11,37 @@
   <body>
 
     <div class="header" id="header" style="color: white;">
-      <nav class="navbar-shadow" role="navigation" id="slide-nav" style="background-color: #222; border-color: #090909;S">
-        <div class="container" style="padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
+      <nav class="navbar-shadow" role="navigation" id="slide-nav" style="background-color: #222; border-color: #090909;">
+        <div class="container">
           <div class="navbar-header" style="font-size: 20px;">
             <span class="navbar-logo" href="/">Bookers</span>
           </div>
           <div class="nav navbar-nav navbar-right">
              <% if user_signed_in? %>
-                <li class="" style="padding-top: 15px; padding-bottom: 15px;">
-                  <%= link_to "Home", user_path(current_user.id) %>
+                <li>
+                  <a class="glyphicon glyphicon-home" href="/users/sign_in">  Home</a>
                 </li>
-                <li class="">
-                  <%= link_to 'Users', users_path %>
+                <li>
+                  <a class="glyphicon glyphicon-user" href="/users">  Users</a>
                 </li>
-                <li class="">
-                  <%= link_to 'Books', books_path %>
+                <li>
+                  <a class="glyphicon glyphicon-book" href="/books">  Books</a>
                 </li>
-                <li class="">
-                  <%= link_to "logout", destroy_user_session_path, method: :delete %>
+                <li>
+                  <a class="glyphicon glyphicon-log-out" rel="bofollow" data-method="delete" href="/users/sign_out">  logout</a>
                 </li>
               <% else %>
-                <li class="">
-                  <%= link_to "Home", '/' %>
+                <li>
+                  <a class="glyphicon glyphicon-home" href="/">  Home</a>
                 </li>
-                <li class="">
-                  <%= link_to "About", '/home/about' %>
+                <li>
+                  <a class="glyphicon glyphicon-link" href="/home/about">  About</a>
                 </li>
-                <li class="">
-                  <%= link_to "Sign up", '/users/sign_up' %>
+                <li>
+                  <a class="glyphicon glyphicon-edit" href="/users/sign_up">  sign up</a>
                 </li>
-                <li class="">
-                  <%= link_to "login", '/users/sign_in' %>
+                <li>
+                  <a class="glyphicon glyphicon-log-in" href="/users/sign_in">  login</a>
                 </li>
               <% end %>
           </div>
@@ -51,16 +51,12 @@
 
     <%= yield %>
 
-   <footer class="footer style-2">
+   <footer>
       <div class="container">
         <div class="row">
-          <div class="col-md-3">
-          </div>
-          <div class="col-md-2">
-            <div class="col">
+            <div class="col-xs-3 col-xs-offset-9">
               <p>CopyRight Inflatop.Inc</p>
             </div>
-          </div>
         </div>
       </div>
     </footer>
@@ -69,4 +65,5 @@
 </html>
 
 <!-- Bootstrapの実装 -->
+<!-- 上記アイコン＆リンクの共存方法はlink_to do もあるよ -->
 
