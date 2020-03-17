@@ -54,6 +54,11 @@
                <% end %>
               </td>
               </td>
+              <td>
+              <div>
+                <a>コメント数: <%= @book.post_comments.count %></a>
+              </div>
+              </td>
               <% if @book.user.id == current_user.id %>
               <td><%= link_to "Edit", edit_book_path(@book), class:"btn btn-success" %></td>
               <td><%= link_to 'Destroy', book_path(@book), method: :delete, class:"btn btn-danger", data: { confirm: '本当に消しますか？' } %></td>
@@ -61,6 +66,49 @@
             </tr>
           </tbody>
         </table>
+        <ol>
+          <% @book.post_comments.each do |post_comment| %>
+          <table class="table">
+            <thead>
+              <tr>
+                <td></td>
+                <td>Name</td>
+                <td>Comment</td>
+                <td></td>
+              </tr>
+            </thead>
+
+            <tbody class="comment-body bb">
+              <tr>
+              <td class="comment-avatar">
+                    <div class="avatar">
+                      <%= attachment_image_tag post_comment.user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" %>
+                    </div>
+                    <% if post_comment.user_id == current_user.id %>
+                    <div><%= link_to "コメント削除", book_post_comments_path(@book), method: :delete, class:"btn btn-danger", data: { confirm: '本当に消しますか？' } %></div>
+                    <% end %>
+              </td>
+              <td class="comment-text">
+                <div class="comment-author clearfix">
+                  <a class="link-author"><%= post_comment.user.name %></a>
+                </div>
+                <td class="comment-entry"><%= post_comment.comment %></td>
+              </td>
+             </tr>
+            </tbody>
+          </table>
+          <% end %>
+        </ol>
+        <%= form_for [@book, @post_comment] do |f| %>
+        <div class="row">
+          <div class="col-sm-12">
+            <%= f.text_area :comment, class: "form-control" %>
+          </div>
+        </div>
+        <div>
+        <%= f.submit "送信する", class: "btn btn-default pull-right" %>
+        <% end %>
+        </div>
       </div>
     </div>
   </div>
