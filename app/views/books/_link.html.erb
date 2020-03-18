@@ -15,6 +15,21 @@
         <th><p>introduction</p></th>
         <th><p><%= user.introduction %></p></th>
       </tr>
+      <tr>
+        <th><p>follows</p></th>
+        <th>
+          <p><%= link_to follow_list_path(@user) do %>
+          <%= user.relationships.count %>
+          <% end %>
+          </p></th>
+      </tr>
+      <tr>
+        <th><p>followers</p></th>
+        <th><p><%= link_to follower_list_path(@user) do %>
+          <%= user.follower_count(user).count %>
+          <% end %>
+          </p></th>
+      </tr>
   </table>
   <div class="row">
   <% if user.id == current_user.id %>
@@ -22,10 +37,19 @@
       <span class="glyphicon glyphicon-wrench col-xs-12 btn btn-default"></span>
       <% end %>
   <% else %>
-    <p><%= link_to user_path(current_user) do %>
-      <span class="glyphicon glyphicon-wrench col-xs-12 btn btn-default"></span>
-      <% end %>
-    </p>
+        <% unless current_user == user %>
+              <% if current_user.following?(user) %>
+                <%= form_for(current_user.relationships.find_by(follow_id: user.id), html: { method: :delete }) do |f| %>
+                  <%= hidden_field_tag :follow_id, user.id %>
+                  <%= f.submit 'Unfollow', class: 'btn btn-danger btn-block' %>
+                <% end %>
+              <% else %>
+                <%= form_for(current_user.relationships.build) do |f| %>
+                  <%= hidden_field_tag :follow_id, user.id %>
+                  <%= f.submit 'Follow', class: 'btn btn-primary btn-block' %>
+                <% end %>
+              <% end %>
+        <% end %>
   <% end %>
   </div>
 </div>
