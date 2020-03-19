@@ -26,7 +26,8 @@ class UsersController < ApplicationController
   	@users = User.all
   	@user = current_user
     @book = Book.new
-  end
+   end
+
 
   def follow_list
     @user = User.find(params[:user_id])
@@ -35,7 +36,6 @@ class UsersController < ApplicationController
   def follower_list
     @user = User.find(params[:user_id])
   end
-
 
   private
 

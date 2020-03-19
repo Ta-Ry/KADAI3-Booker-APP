@@ -35,4 +35,19 @@ class User < ApplicationRecord
   	Relationship.where(follow_id: user.id)
   end
 
+  def self.search(method,search)
+      if method == "forward_match"
+        @users = User.where("name LIKE ?","#{search}%")
+      elsif method == "backward_match"
+        @users = User.where("name LIKE ?","%#{search}")
+      elsif method == "perfect_match"
+        @users = User.where("name LIKE ?","#{search}")
+      elsif method == "partial_match"
+        @users = User.where("name LIKE ?","%#{search}%")
+      else
+        @users = User.all
+      end
+  end
+
 end
+
