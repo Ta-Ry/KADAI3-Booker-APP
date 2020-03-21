@@ -36,22 +36,8 @@
               <p class="opinion">
                 <%= @book.body %>
               </p>
-              <td>
-                <% if @book.favorited_by?(current_user) %>
-                <div>
-                 <%= link_to book_favorites_path(@book), method: :delete do %>
-                 <i class="glyphicon glyphicon-heart" style="color: red;"></i>
-                 <%= @book.favorites.count %>
-                 <% end %>
-               </div>
-               <% else %>
-               <div>
-                 <%= link_to book_favorites_path(@book), method: :post do %>
-                 <i class="glyphicon glyphicon-heart-empty"></i>
-                 <%= @book.favorites.count %>
-                 <% end %>
-               </div>
-               <% end %>
+              <td id="favorite-<%= @book.id %>">
+                <%= render partial: "favorite", locals: {book: @book } %>
               </td>
               </td>
               <td>
@@ -66,49 +52,30 @@
             </tr>
           </tbody>
         </table>
-        <ol>
-          <% @book.post_comments.each do |post_comment| %>
+        <div>
           <table class="table">
-            <thead>
-              <tr>
-                <td></td>
-                <td>Name</td>
-                <td>Comment</td>
-                <td></td>
+          <thead>
+            <tr>
+              <td></td>
+              <td>Name</td>
+              <td>Comment</td>
+              <td></td>
               </tr>
-            </thead>
+          </thead>
 
-            <tbody class="comment-body bb">
-              <tr>
-              <td class="comment-avatar">
-                    <div class="avatar">
-                      <%= attachment_image_tag post_comment.user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" %>
-                    </div>
-                    <% if post_comment.user_id == current_user.id %>
-                    <div><%= link_to "コメント削除", book_post_comments_path(@book), method: :delete, class:"btn btn-danger", data: { confirm: '本当に消しますか？' } %></div>
-                    <% end %>
-              </td>
-              <td class="comment-text">
-                <div class="comment-author clearfix">
-                  <a class="link-author"><%= post_comment.user.name %></a>
-                </div>
-                <td class="comment-entry"><%= post_comment.comment %></td>
-              </td>
-             </tr>
-            </tbody>
-          </table>
+          <tbody id="comment-<%= @book.id %>">
+          <% @book.post_comments.each do |post_comment| %>
+          <%= render partial: 'comment_list', locals: { post_comment: post_comment } %>
           <% end %>
-        </ol>
-        <%= form_for [@book, @post_comment] do |f| %>
-        <div class="row">
-          <div class="col-sm-12">
-            <%= f.text_area :comment, class: "form-control" %>
-          </div>
+          </tbody>
+        </table>
+
         </div>
         <div>
-        <%= f.submit "送信する", class: "btn btn-default pull-right" %>
-        <% end %>
-        </div>
+        <% if user_signed_in? %>
+      <!-- コメント入力欄をブログの詳細ページに表示するためのrender -->
+          <%= render partial: 'comment', locals: { book: @book, post_comment: @post_comment } %>
+    <% end %>
       </div>
     </div>
   </div>
