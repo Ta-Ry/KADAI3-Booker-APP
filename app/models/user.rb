@@ -34,6 +34,7 @@ class User < ApplicationRecord
   def follower_count(user)
   	Relationship.where(follow_id: user.id)
   end
+  #上記has_manyの:reverse_of_relationshipsと同じ役割
 
   def self.search(method,search)
       if method == "forward_match"
@@ -47,6 +48,16 @@ class User < ApplicationRecord
       else
         @users = User.all
       end
+
+  jp_prefecture :prefecture_code
+
+  def prefecture_name
+    JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)
+  end
+
+  def prefecture_name=(prefecture_name)
+    self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
+  end
   end
 
 end

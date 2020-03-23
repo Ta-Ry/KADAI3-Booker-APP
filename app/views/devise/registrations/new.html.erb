@@ -1,7 +1,7 @@
 <div class="container">
 <h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
@@ -26,6 +26,18 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
+
+  <p>郵便番号</p>
+  <%= f.text_field :postcode %>
+  <p>都道府県</p>
+  <%= f.text_field :prefecture_code, collection: JpPrefecture::Prefecture.all, :value_method => :name, include_blank: '都道府県' %>
+  <p>市町村名</p>
+  <%= f.text_field :address_city %>
+  <p>番地</p>
+  <%= f.text_field :address_street %>
+  <p>建物名</p>
+  <%= f.text_field :address_building %>
+
 
   <div class="actions">
     <input type="submit" name="commit" class="btn btn-success" value="Sign up" date-disable-with="Sign up"></input>

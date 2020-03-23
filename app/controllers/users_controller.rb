@@ -26,7 +26,11 @@ class UsersController < ApplicationController
   	@users = User.all
   	@user = current_user
     @book = Book.new
-   end
+  end
+
+  def create
+  params.require(:user).permit(:postcode, :prefecture_name, :address_city, :address_street, :address_building)
+  end
 
 
   def follow_list
