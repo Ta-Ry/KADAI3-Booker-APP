@@ -32,7 +32,6 @@ class UsersController < ApplicationController
   params.require(:user).permit(:postcode, :prefecture_name, :address_city, :address_street, :address_building)
   end
 
-
   def follow_list
     @user = User.find(params[:user_id])
   end

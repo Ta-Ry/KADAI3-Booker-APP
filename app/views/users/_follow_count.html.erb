@@ -1,0 +1,5 @@
+		<div id="follow_count<%= user.id %>">
+            <%= link_to follow_list_path(user, remote: true) do %>
+            <label>フォロー数: </label> <%= user.relationships.count %>
+            <% end %>
+        </div>

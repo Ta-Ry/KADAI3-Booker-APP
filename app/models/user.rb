@@ -47,8 +47,10 @@ class User < ApplicationRecord
         @users = User.where("name LIKE ?","%#{search}%")
       else
         @users = User.all
-      end
+    end
+  end
 
+  include JpPrefecture
   jp_prefecture :prefecture_code
 
   def prefecture_name
@@ -57,7 +59,6 @@ class User < ApplicationRecord
 
   def prefecture_name=(prefecture_name)
     self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
-  end
   end
 
 end

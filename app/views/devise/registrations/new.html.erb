@@ -5,12 +5,12 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+    <label>Name</label><br>
+    <%= f.input :name, autofocus: true, autocomplete: "name", required: false, wrapper: false, label: false %>
   </div>
 
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :email %><br>
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
@@ -18,7 +18,7 @@
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
+    <% end %><br>
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
 
@@ -28,15 +28,15 @@
   </div>
 
   <p>郵便番号</p>
-  <%= f.text_field :postcode %>
+  <%= f.input :postcode, label: false %>
   <p>都道府県</p>
-  <%= f.text_field :prefecture_code, collection: JpPrefecture::Prefecture.all, :value_method => :name, include_blank: '都道府県' %>
+  <%= f.input :prefecture_code, collection: JpPrefecture::Prefecture.all, :value_method => :name, include_blank: '都道府県', label: false %>
   <p>市町村名</p>
-  <%= f.text_field :address_city %>
+  <%= f.input :address_city, label: false %>
   <p>番地</p>
-  <%= f.text_field :address_street %>
+  <%= f.input :address_street, label: false %>
   <p>建物名</p>
-  <%= f.text_field :address_building %>
+  <%= f.input :address_building, label: false %>
 
 
   <div class="actions">
