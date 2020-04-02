@@ -10,5 +10,3 @@ class FavoritesController < ApplicationController
         favorite.destroy
     end
 end
-
-
